@@ -1,0 +1,2 @@
+# blog
+Mening shaxsiy blogim
