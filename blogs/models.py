@@ -7,6 +7,14 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 
 
+
+blog_subcategory = (
+    ('blog', 'Blog'),
+    ('project', 'Loyiha')
+    )
+
+
+
 class Category(models.Model):
     name = models.CharField(max_length=120, verbose_name="Bo'lim nomi")
 
@@ -25,8 +33,13 @@ class Blog(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  null="Boshqa")
     title = models.CharField(max_length=150, verbose_name="Blog nomi")
+    summary = models.CharField(max_length=300, verbose_name="Qisqacha")
     body = RichTextUploadingField(verbose_name="Blog matni")
+    photo = models.ImageField(upload_to="images/", verbose_name="Blog post rasmi", default='blog.png')
     slug = models.SlugField(max_length=200, null=True, verbose_name='URL')
+    blog_subcategory = models.CharField(max_length=50, choices = blog_subcategory, default='blog', verbose_name="Subkategoriya")
+    base_blog = models.BooleanField(default=False, verbose_name="Asosiy blog")
+    views = models.IntegerField(default=0, null=True, blank=True, verbose_name="Ko'rishlar soni")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

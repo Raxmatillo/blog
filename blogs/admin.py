@@ -3,10 +3,20 @@ from django.contrib import admin
 from .models import Blog, Category
 
 
-class BlogAdmin(admin.ModelAdmin):
-    list_display = ["title", "category", "created_at"]
-    prepopulated_fields = {"slug": ("title",)}
 
-admin.site.register(Category)
-admin.site.register(Blog, BlogAdmin)
-# Register your models here.
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ["name", ]
+    search_fields = ["name", ]
+    list_filter = ["name", ]
+
+
+
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ["title", "category", "blog_subcategory", "base_blog", "views"]
+    prepopulated_fields = {"slug": ("title",)}
+    search_fields = ["title", "category"]
+    list_filter = ["category", "blog_subcategory", "base_blog", "views"]

@@ -1,0 +1,138 @@
+{% extends 'main.html' %}
+{% block title %}{{ blog.title }}{% endblock title %}
+
+
+    <style>
+      .blog-header{
+        display: none;
+      }
+      .search-class{
+        padding: 5px;
+        border: 1px solid #6c757d ;
+        border-radius: 0.25rem;
+      }
+      .search-class:focus{
+        border: 2px solid grey;
+        outline: none;
+      }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+        .blog-header{
+        display: block;
+      }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+
+{% block content %}
+
+  <div class="row g-5">
+    <div class="row g-5">
+    <div class="col-md-8">
+      <article class="blog-post">
+        <h2 class="blog-post-title mb-1">{{ blog.title }}</h2>
+        <p class="blog-post-meta">
+          {{blog.created_at|date:"d-M Y | H:i" }} {{ blog.owner.first_name }}</p>
+        <p>
+          <i>{{ blog.summary }}!</i>
+        </p>
+        {% if blog.photo == "blog.png" %}
+
+        {% else %}
+          <img src="{{ blog.photo.url }}" class="img-fluid rounded mx-auto d-block" style="width: 30rem; height: auto" alt="{{ blog.title }}">
+        {% endif %}
+        <p>{{ blog.body|safe }}</p>
+      </article>
+      <hr>
+      Ulashing
+          {% load social_share %}
+          <div class="d-flex align-items-center">
+            {% post_to_linkedin object_or_url %}
+            <div class="fb-share-button mx-3"
+            data-href="{{ request.build_absolute_uri }}"
+            data-layout="button">
+            </div>
+              <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-share-url="{{ request.build_absolute_uri }}" data-comment="{{ blog.title }}"></script>
+            </div>
+
+
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/uz_UZ/sdk.js#xfbml=1&version=v17.0" nonce="JEqKKkKq"></script>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+    {% endblock content %}
+
+
+
+    {% load social_share %}
+      <div class="d-flex">
+        {% post_to_linkedin object_or_url %}
+        <div class="fb-share-button"
+        data-href="{{ request.build_absolute_uri }}"
+        data-layout="button_count">
+        </div>
+          <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-share-url="{{ request.build_absolute_uri }}" data-comment="{{ blog.title }}"></script>
+        </div>
+
+
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/uz_UZ/sdk.js#xfbml=1&version=v17.0" nonce="JEqKKkKq"></script>
+      </div>
+
