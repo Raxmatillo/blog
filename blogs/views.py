@@ -2,6 +2,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 
+from colorthief import ColorThief
+
 
 
 from .models import Category, Blog
@@ -26,13 +28,21 @@ def home(request):
 	blogs_views = Blog.objects.all().order_by("-views")[:5]
 	main_blog = Blog.objects.filter(base_blog=True)[0]
 	categories = Category.objects.all()
-	print(main_blog)
+	color_thief = ColorThief("media"+main_blog.photo.url)
+	dominant_color = color_thief.get_color()
+	
 	context = {
 		'categories': categories,
 		'blogs': blogs,
 		'blogs_views': blogs_views,
-		'main_blog': main_blog
+		'main_blog': main_blog,
+		'dominant_color': dominant_color,
+		'r': dominant_color[0],
+		'g': dominant_color[1],
+		'b': dominant_color[2],
 	}
+	
+
 	return render(request, 'home.html', context)
 
 
@@ -53,11 +63,19 @@ def detail(request, slug=None):
 	blogs_views = Blog.objects.all().order_by("-views")[:5]
 	main_blog = Blog.objects.filter(base_blog=True)[0]
 	categories = Category.objects.all()
+
+	color_thief = ColorThief("media"+main_blog.photo.url)
+	dominant_color = color_thief.get_color()
+
 	context = {
 		'categories': categories,
 		'blogs': blogs,
 		'blogs_views': blogs_views,
 		'main_blog': main_blog,
-		'blog':blog
+		'blog':blog,
+		'dominant_color': dominant_color,
+		'r': dominant_color[0],
+		'g': dominant_color[1],
+		'b': dominant_color[2],
 	}
 	return render(request, 'detail.html', context)

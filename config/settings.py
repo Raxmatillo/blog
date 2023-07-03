@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     # global app
-    'ckeditor',
-    'ckeditor_uploader',
+    'froala_editor',
     'django_social_share',
 
+    'api.apps.ApiConfig',
     'blogs.apps.BlogsConfig',
 ]
 
@@ -151,14 +153,10 @@ MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CKEDITOR_CONFIGS = {
-    'default':
-        {
-            'width': 'auto',
-            'extraPlugins': ','.join([
-                'codesnippet',
-            ]),
-        },
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 }
-
-CKEDITOR_UPLOAD_PATH = "uploads/"

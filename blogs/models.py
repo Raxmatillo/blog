@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 
-from ckeditor.fields import RichTextField
-from ckeditor_uploader.fields import RichTextUploadingField
+from froala_editor.fields import FroalaField
+
 
 
 
@@ -34,7 +34,9 @@ class Blog(models.Model):
                                  null="Boshqa")
     title = models.CharField(max_length=150, verbose_name="Blog nomi")
     summary = models.CharField(max_length=300, verbose_name="Qisqacha")
-    body = RichTextUploadingField(verbose_name="Blog matni")
+    body = FroalaField(options={
+      'toolbarInline': False,
+    })
     photo = models.ImageField(upload_to="images/", verbose_name="Blog post rasmi", default='blog.png')
     slug = models.SlugField(max_length=200, null=True, verbose_name='URL')
     blog_subcategory = models.CharField(max_length=50, choices = blog_subcategory, default='blog', verbose_name="Subkategoriya")
