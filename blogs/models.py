@@ -41,7 +41,6 @@ class Blog(models.Model):
     slug = models.SlugField(max_length=200, null=True, verbose_name='URL')
     blog_subcategory = models.CharField(max_length=50, choices = blog_subcategory, default='blog', verbose_name="Subkategoriya")
     base_blog = models.BooleanField(default=False, verbose_name="Asosiy blog")
-    views = models.IntegerField(default=0, null=True, blank=True, verbose_name="Ko'rishlar soni")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

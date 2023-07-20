@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+  {% load hitcount_tags %}
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +22,7 @@
     <style>
       .myrow {
             background: rgb{{ dominant_color }};
-            background: linear-gradient(90deg, rgba({{r}}, {{g}}, {{b}},1) 65%, rgba(45,38,31,0.7063200280112045) 100%);
+            background: linear-gradient(90deg, rgba({{r}}, {{g}}, {{b}},1) 65%, rgba(45,38,31,0.5063200280112045) 100%);
         }
 
       .card{
@@ -160,13 +161,13 @@
       <div class="position-sticky" style="top: 2rem;">
         <div class="p-4 mb-3 bg-light rounded">
           {% if blogs_views %}
-          <h4 class="fst-italic">Eng aktivlari</h4>
+          <h4 class="fst-italic">Eng so'nggilari</h4>
           <p class="mb-0">
             <ul style="list-style: none;">
             {% for blog_view in blogs_views %}
               <li>
                 <a class="nav-link" href="{% url 'detail' blog_view.slug %}">
-                  - {{blog_view.title }} {{blog_view.views}}
+                  - {{blog_view.title }} {% get_hit_count for blog_view %}
                 </a>
               </li>
             {% endfor %}
@@ -214,22 +215,7 @@
   <p class="text-center text-white d-flex justify-content-center align-items-center">Copyright 2023 | Raxmatullo</p>
 </footer>
 
-<script src="node_modules/colorthief/dist/color-thief.umd.js"></script>
-<script>
-    const colorThief = new ColorThief();
-    const img = document.querySelector('img');
-    console.log('heeey');
-    console.log(img);
-    const a = colorThief.getColor(img);
-    console.log(a);
-    if (img.complete) {
-        colorThief.getColor(img);
-    } else {
-        image.addEventListener('load', function () {
-            colorThief.getColor(img);
-        });
-    }
-</script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>

@@ -4,31 +4,33 @@ from django.shortcuts import render
 
 from colorthief import ColorThief
 
-
-
 from .models import Category, Blog
 
+
+from hitcount.utils import get_hitcount_model
+from hitcount.views import HitCountMixin
 
 
 
 def home(request):
 	q = request.GET.get('q') if request.GET.get('q') != None else ''
-
+	print(q)
 	blogs = Blog.objects.filter(
 		Q(title__icontains=q) |
 		Q(blog_subcategory__icontains=q) |
 		Q(summary__icontains=q)
 	)
 
-	paginator = Paginator(blogs, 2)
+	
+	paginator = Paginator(blogs, 8)
 	page_number = request.GET.get('page')
 	blogs = paginator.get_page(page_number)
 
 
-	blogs_views = Blog.objects.all().order_by("-views")[:5]
+	blogs_views = Blog.objects.all()
 	main_blog = Blog.objects.filter(base_blog=True)[0]
 	categories = Category.objects.all()
-	color_thief = ColorThief("media"+main_blog.photo.url)
+	color_thief = ColorThief("."+main_blog.photo.url)
 	dominant_color = color_thief.get_color()
 	
 	context = {
@@ -55,16 +57,26 @@ def detail(request, slug=None):
 		Q(summary__icontains=q)
 	)
 
+	
 	paginator = Paginator(blogs, 2)
 	page_number = request.GET.get('page')
 	blogs = paginator.get_page(page_number)
 
 	blog = Blog.objects.get(slug=slug)
-	blogs_views = Blog.objects.all().order_by("-views")[:5]
+
+	# hitcount
+	hit_count = get_hitcount_model().objects.get_for_object(blog)
+	hits = hit_count.hits
+	hit_count_response = HitCountMixin.hit_count(request, hit_count)
+	if hit_count_response.hit_counted:
+		hits +=1
+
+	blogs_views = Blog.objects.all()
+	print(blogs_views)
 	main_blog = Blog.objects.filter(base_blog=True)[0]
 	categories = Category.objects.all()
 
-	color_thief = ColorThief("media"+main_blog.photo.url)
+	color_thief = ColorThief("."+main_blog.photo.url)
 	dominant_color = color_thief.get_color()
 
 	context = {
@@ -73,9 +85,18 @@ def detail(request, slug=None):
 		'blogs_views': blogs_views,
 		'main_blog': main_blog,
 		'blog':blog,
+		'hits':hits,
 		'dominant_color': dominant_color,
 		'r': dominant_color[0],
 		'g': dominant_color[1],
 		'b': dominant_color[2],
 	}
 	return render(request, 'detail.html', context)
+
+
+
+def error_404_view(request, exception):
+   
+    # we add the path to the 404.html file
+    # here. The name of our HTML file is 404.html
+    return render(request, '404.html')

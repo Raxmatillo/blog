@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 {% block title %}Rakhmatullo Shermatov | Shaxsiy blog{% endblock title %}
 
+{% load hitcount_tags %}
 
   {% block content %}
   <div class="row g-5">
@@ -15,7 +16,9 @@
           <div class="card mb-3">
             <div class="row g-0">
               <div class="col-md-4">
+                {% if blog.photo %}
                 <img src="{{ blog.photo.url }}" class="img-fluid rounded-start post-image" alt="...">
+                {% endif %}
               </div>
               <div class="col-md-8">
                 <div class="card-body">
@@ -24,9 +27,8 @@
                        style="text-decoration:none;">
                       {{ blog.title }}</a>
                   </h4>
-
                   <p class="card-text d-flef justify-content-center"><small class="text-muted">
-                    {{blog.created_at|date:"d-M Y | H:i" }} {{ blog.owner.first_name }} | {{ blog.views }} ko'rildi
+                    {{blog.created_at|date:"d-M Y | H:i" }} {{ blog.owner.first_name }} | {% get_hit_count for blog %} ko'rildi
                   </small></p>
                   <p class="text-muted">
                     {{ blog.summary }}

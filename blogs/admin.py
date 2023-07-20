@@ -16,7 +16,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ["title", "category", "blog_subcategory", "base_blog", "views"]
+    list_display = ["title", "category", "blog_subcategory", "base_blog"]
     prepopulated_fields = {"slug": ("title",)}
     search_fields = ["title", "category"]
-    list_filter = ["category", "blog_subcategory", "base_blog", "views"]
+    list_filter = ["category", "blog_subcategory", "base_blog"]
