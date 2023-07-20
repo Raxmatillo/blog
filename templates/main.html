@@ -148,8 +148,13 @@
     </div>
     <div class="col-md-5 px-0">
       <div style="object-fit: fill; width: 100%;height: 100%;">
+        {% if main_blog %}
         <img src="{{ main_blog.photo.url }}" alt="" class="img img-fluid float-end" srcset="" id="img" 
         style="position: relative; z-index: -1;width: 100%; height: 100%;">
+        {% else  %}
+        <img src="https://avatars.githubusercontent.com/u/78679025?v=4" alt="" class="img img-fluid float-end" srcset="" id="img" 
+        style="position: relative; z-index: -1;width: 100%; height: 100%;">
+        {% endif %}
       </div>
     </div>
   </div>

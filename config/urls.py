@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+handler404 = 'blogs.views.custom_404_view'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,4 +17,3 @@ urlpatterns = [
 urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-handler404 = 'blogs.views.error_404_view'

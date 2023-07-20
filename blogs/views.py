@@ -21,6 +21,7 @@ def home(request):
 		Q(summary__icontains=q)
 	)
 
+	categories = Category.objects.all()
 	
 	paginator = Paginator(blogs, 8)
 	page_number = request.GET.get('page')
@@ -28,10 +29,22 @@ def home(request):
 
 
 	blogs_views = Blog.objects.all()
-	main_blog = Blog.objects.filter(base_blog=True)[0]
-	categories = Category.objects.all()
+
+
+	if len(blogs_views) == 1:
+		main_blog = Blog.objects.all().last()
+	if len(blogs_views)>1:
+		main_blog = Blog.objects.filter(base_blog=True)[0]
+	if len(blogs_views)<1:
+		return render(request, 'default.html')
+
+	
+
 	color_thief = ColorThief("."+main_blog.photo.url)
 	dominant_color = color_thief.get_color()
+
+
+
 	
 	context = {
 		'categories': categories,
@@ -72,8 +85,15 @@ def detail(request, slug=None):
 		hits +=1
 
 	blogs_views = Blog.objects.all()
-	print(blogs_views)
-	main_blog = Blog.objects.filter(base_blog=True)[0]
+
+	if len(blogs_views) == 1:
+		main_blog = Blog.objects.all().last()
+	else:
+		main_blog = Blog.objects.filter(base_blog=True)[0]
+	if len(blogs_views)<1:
+		return render(request, 'default.html')
+	
+	
 	categories = Category.objects.all()
 
 	color_thief = ColorThief("."+main_blog.photo.url)
@@ -95,8 +115,6 @@ def detail(request, slug=None):
 
 
 
-def error_404_view(request, exception):
-   
-    # we add the path to the 404.html file
-    # here. The name of our HTML file is 404.html
-    return render(request, '404.html')
+
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
