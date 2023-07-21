@@ -1,15 +1,18 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 
-handler404 = 'blogs.views.custom_404_view'
+from blogs.views import custom_404_view, home
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('blogs.urls')),
+    path('blog-admin/', admin.site.urls),
+    path('home/', include('blogs.urls')),
+    path('', home),
+    re_path(r"^", custom_404_view),
     path('froala_editor/', include('froala_editor.urls')),
 ]
 

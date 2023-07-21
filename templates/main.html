@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
@@ -129,11 +130,11 @@
   <div class="nav-scroller py-1 mb-2">
     <nav class="nav d-flex justify-content-start">
       {% if request.resolver_match.url_name == 'home' %}
-        <a class="p-2 link-secondary" href="?q=blog">Blog</a>
-        <a class="p-2 link-secondary" href="?q=project">Loyihalar</a>
+        <a class="p-2 link-secondary" href="?q=blog" title="Blog">Blog</a>
+        <a class="p-2 link-secondary" href="?q=project" title="Loyihalar">Loyihalar</a>
       {% else %}
-        <a class="p-2 link-secondary" href="/?q=blog">Blog</a>
-        <a class="p-2 link-secondary" href="/?q=project">Loyihalar</a>
+        <a class="p-2 link-secondary" href="/?q=blog" title="Blog">Blog</a>
+        <a class="p-2 link-secondary" href="/?q=project" title="Loyihalar">Loyihalar</a>
       {% endif %}
     </nav>
   </div>
@@ -144,16 +145,16 @@
     <div class="col-md-7 p-4 p-md-4 px-0">
       <h1 class="display-4 fst-italic">{{ main_blog.title }}</h1>
       <p class="lead my-3">{{ main_blog.summary }}</p>
-      <p class="lead mb-0"><a href="{% url 'detail' main_blog.slug %}" class="text-white fw-bold">Davomini o'qish...</a></p>
+      <p class="lead mb-0"><a href="{% url 'detail' main_blog.slug %}" class="text-white fw-bold" title="{{ main_blog.summary|truncatewords:20 }}">Davomini o'qish...</a></p>
     </div>
     <div class="col-md-5 px-0">
       <div style="object-fit: fill; width: 100%;height: 100%;">
         {% if main_blog %}
         <img src="{{ main_blog.photo.url }}" alt="" class="img img-fluid float-end" srcset="" id="img" 
-        style="position: relative; z-index: -1;width: 100%; height: 100%;">
+        style="position: relative; z-index: -1;width: 100%; height: 100%;" title="{{ main_blog.title}}">
         {% else  %}
         <img src="https://avatars.githubusercontent.com/u/78679025?v=4" alt="" class="img img-fluid float-end" srcset="" id="img" 
-        style="position: relative; z-index: -1;width: 100%; height: 100%;">
+        style="position: relative; z-index: -1;width: 100%; height: 100%;" title="{{ main_blog.title}}">
         {% endif %}
       </div>
     </div>
@@ -171,7 +172,7 @@
             <ul style="list-style: none;">
             {% for blog_view in blogs_views %}
               <li>
-                <a class="nav-link" href="{% url 'detail' blog_view.slug %}">
+                <a class="nav-link" href="{% url 'detail' blog_view.slug %}" title="{{ blog_view.title }}">
                   - {{blog_view.title }} {% get_hit_count for blog_view %}
                 </a>
               </li>
@@ -189,9 +190,9 @@
             {% if categories %}
             {% for category in categories %}
               {% if request.resolver_match.url_name == 'home' %}
-              <li><a href="?q={{ category.name }}">{{ category.name }}</a></li>
+              <li><a href="?q={{ category.name }}" title="{{ category.name }}">{{ category.name }}</a></li>
               {% else %}
-              <li><a href="/?q={{ category.name }}">{{ category.name }}</a></li>
+              <li><a href="/?q={{ category.name }}" title="{{ category.name }}">{{ category.name }}</a></li>
               {% endif %}
             {% endfor %}
             {% else %}
@@ -203,11 +204,11 @@
         <div class="p-4">
           <h4 class="fst-italic">Ijtimoiy tarmoqlarda</h4>
           <ol class="list-unstyled">
-            <li><a href="https://www.github.com/Raxmatillo/">GitHub</a></li>
-            <li><a href="https://www.facebook.com/milodmusic.fl/">Facebook</a></li>
-            <li><a href="https://www.linkedin.com/in/raxmatullo-shermatov/">LinkedIn</a></li>
-            <li><a href="https://t.me/havaskor_dasturchi">Telegram</a></li>
-            <li><a href="https://t.me/sql_darslari">Telegram Channel</a></li>
+            <li><a href="https://www.github.com/Raxmatillo/" title="Github">GitHub</a></li>
+            <li><a href="https://www.facebook.com/milodmusic.fl/" title="Facebook">Facebook</a></li>
+            <li><a href="https://www.linkedin.com/in/raxmatullo-shermatov/" title="LinkedIn">LinkedIn</a></li>
+            <li><a href="https://t.me/havaskor_dasturchi" title="Telegram">Telegram</a></li>
+            <li><a href="https://t.me/sql_darslari" title="Telegram Channel">Telegram Channel</a></li>
           </ol>
         </div>
       </div>

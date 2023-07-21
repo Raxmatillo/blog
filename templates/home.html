@@ -17,14 +17,14 @@
             <div class="row g-0">
               <div class="col-md-4">
                 {% if blog.photo %}
-                <img src="{{ blog.photo.url }}" class="img-fluid rounded-start post-image" alt="...">
+                <img src="{{ blog.photo.url }}" class="img-fluid rounded-start post-image" alt="{{ blog.title }}" title="{{ blog.title }}">
                 {% endif %}
               </div>
               <div class="col-md-8">
                 <div class="card-body">
                   <h4 class="card-title">
                     <a href="{% url 'detail' blog.slug %}"
-                       style="text-decoration:none;">
+                       style="text-decoration:none;" title="{{ blog.title }}">
                       {{ blog.title }}</a>
                   </h4>
                   <p class="card-text d-flef justify-content-center"><small class="text-muted">
@@ -47,15 +47,15 @@
 
       <nav class="blog-pagination pt-2 pb-4" aria-label="Pagination">
         {% if blogs.has_previous %}
-        <a class="btn btn-outline-primary rounded-pill " href="?page={{ blogs.previous_page_number }}">Yangi</a>
+        <a class="btn btn-outline-primary rounded-pill " href="?page={{ blogs.previous_page_number }}" title="Yangi">Yangi</a>
         {% else %}
-        <a class="btn btn-outline-primary rounded-pill disabled" href="">Yangi</a>
+        <a class="btn btn-outline-primary rounded-pill disabled" href="" title="Yangi">Yangi</a>
         {% endif %}
 
         {% if blogs.has_next %}
-        <a class="btn btn-outline-secondary rounded-pill {% if blogs.has_next%}{% else %}disabled{% endif %}" href="?page={{ blogs.next_page_number }}">Eski</a>
+        <a class="btn btn-outline-secondary rounded-pill {% if blogs.has_next%}{% else %}disabled{% endif %}" href="?page={{ blogs.next_page_number }}" title="Eski">Eski</a>
         {% else %}
-        <a class="btn btn-outline-secondary rounded-pill disabled" href="#">Eski</a>
+        <a class="btn btn-outline-secondary rounded-pill disabled" href="#" title="Eski">Eski</a>
         {% endif %}
 
 

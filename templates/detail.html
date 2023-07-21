@@ -76,8 +76,8 @@
     <div class="row g-5">
     <div class="col-md-8">
       <article class="blog-post">
-        <h2 class="blog-post-title mb-1">{{ blog.title }}</h2>
-        <p class="blog-post-meta">
+        <h2 class="blog-post-title mb-1" title="{{ blog.title }}">{{ blog.title }}</h2>
+        <p class="blog-post-meta" title="{{ blog.owner.first_name }}">
           {{blog.created_at|date:"d-M Y | H:i" }} {{ blog.owner.first_name }}</p>
         <p>
           <i>{{ blog.summary }}!</i>
@@ -85,7 +85,7 @@
         {% if blog.photo == "blog.png" %}
 
         {% else %}
-          <img src="{{ blog.photo.url }}" class="img-fluid rounded mx-auto d-block" style="width: 30rem; height: auto" alt="{{ blog.title }}">
+          <img src="{{ blog.photo.url }}" title="{{ blog.title }}" class="img-fluid rounded mx-auto d-block" style="width: 30rem; height: auto" alt="{{ blog.title }}">
         {% endif %}
         <p>{{ blog.body|safe }}</p>
       </article>
